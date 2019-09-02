@@ -1,0 +1,5 @@
+
+
+<app-product></app-product>
+<app-product-view *ngFor="let product of products " [productName]="product" (productClicked)="onRemoveProduct(product)" ></app-product-view>
+

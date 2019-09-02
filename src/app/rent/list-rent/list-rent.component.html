@@ -1,0 +1,38 @@
+
+
+<div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+    <mat-card-content>
+      <!-- column -->
+      <h3 class="m-t-0">Available rents</h3>
+
+      <div fxLayout="row wrap" >
+        <div *ngFor="let rent of rents" fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+          <app-rent  [rent] ='rent'> </app-rent>
+        </div>
+
+        <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+
+    <mat-card class="oh" *ngIf="user!=null">
+      <a href="/addrent" style="color: black;" title="Add Rent">
+
+        <img mat-card-image src="../../../assets/images/rent/+.png" alt="Photo of a Shiba Inu"    >
+
+        <mat-card-content style="margin-bottom: 0px;">
+
+          <mat-card-actions>
+
+
+
+          </mat-card-actions>
+        </mat-card-content>
+      </a>
+    </mat-card>
+  </div>
+
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+

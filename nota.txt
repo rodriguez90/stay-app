@@ -1,0 +1,1 @@
+yarn install @angular/material @angular/cdk @angular/animations

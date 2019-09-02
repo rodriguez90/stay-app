@@ -1,0 +1,76 @@
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card class="oh">
+      <mat-card-title>
+        <h3 style="margin: 5px;">Name: {{rent.name}}</h3>
+          <mat-card-subtitle>
+            <h5 style="margin: 10px;" >Owner: {{rent.owner}}</h5>
+          </mat-card-subtitle>
+      </mat-card-title>
+
+
+
+      <mat-card-content style="margin-bottom: 0px;">
+
+        <div fxLayout="row wrap">
+
+        <div fxFlex.gt-lg="50"  fxFlex.gt-md="50"  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+          <img mat-card-image src="{{rent.img}}" alt="Photo of a Shiba Inu"    >
+
+          <mat-card-actions>
+
+            <mat-icon *ngIf="rent.services.local_hotel" style="margin: 5px;" >local_hotel</mat-icon>
+            <mat-icon *ngIf="rent.services.restaurant"  style="margin: 5px;" >restaurant</mat-icon>
+            <mat-icon *ngIf="rent.services.ac_unit"     style="margin: 5px;" >ac_unit</mat-icon>
+            <mat-icon *ngIf="rent.services.directions_car" style="margin: 5px;"  >directions_car</mat-icon>
+            <mat-icon *ngIf="rent.services.wifi"  style="margin: 5px;" >wifi</mat-icon>
+            <mat-icon *ngIf="rent.services.live_tv"  style="margin: 5px;" >live_tv</mat-icon>
+            <img *ngIf="rent.services.live_tv"  style="margin-left: 5px;" src="../../assets/images/bath.png" >
+
+          </mat-card-actions>
+        </div>
+
+        <div fxFlex.gt-lg="50"   fxFlex.gt-md="50" fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+          <div style="text-align: center;">
+            <h1 style="margin-bottom: 0px;" ><sup>$</sup>{{rent.price}} </h1>
+            <mat-card-subtitle class="mat-text-primary" style="margin-left: 10px;">per night</mat-card-subtitle>
+
+          </div>
+          <div style="margin: 20px;">
+
+            <p>{{rent.description}}</p>
+
+            <div style="display: inline-block;width: 100%;margin-top: 25px;" >
+              <mat-icon >phone</mat-icon>
+              <div class="text-muted"> {{rent.phone}}</div>
+            </div>
+
+            <div style="display: inline-block;width: 100%;margin-top: 25px;">
+              <mat-icon>email</mat-icon>
+              <div class="text-muted"> {{rent.email}}</div>
+            </div>
+
+            <div style="display: inline-block;width: 100%;margin-top: 25px;">
+              <img *ngIf="rent.services.live_tv"  style="margin-left: 5px;" src="../../assets/images/icons8-address-24.png" >
+              <div class="text-muted">{{rent.address}}</div>
+            </div>
+
+          </div>
+
+
+
+
+
+
+        </div>
+
+
+      </div>
+      </mat-card-content>
+
+  </mat-card>
+  </div>
+
+
+</div>
