@@ -1,4 +1,4 @@
-  import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -57,15 +57,25 @@ export class AddRentComponent implements OnInit {
 
 
   onFileSelected(files) {
-    if (files.length === 0) {
-      return;
-    }
-    let fileToUpload =  files[0] as File;
 
-    const reader = new FileReader();
-    reader.readAsDataURL(fileToUpload)
-    reader.onload = () => {
-      this.imageUrl = reader.result.toString();
-    }
+	   if (files.length === 0) {
+            return;
+        }
+
+        let fileToUpload =  files[0] as File;
+
+		console.log(fileToUpload);
+
+    // console.log(event.target.files[0]);
+    // let selectedFile: File;
+    // selectedFile = event.target.files[0];
+     const reader = new FileReader();
+     reader.readAsDataURL(fileToUpload)
+     reader.onload = () => {
+       this.imageUrl = reader.result.toString();
+     }
+    // reader.readAsDataURL( selectedFile );
+
   }
+
 }
