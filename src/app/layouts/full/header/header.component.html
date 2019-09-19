@@ -82,8 +82,8 @@
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
         <li><a routerLink="/welcome">Welcome</a></li>
         <li><a routerLink="/aboutus">About</a></li>
-        <li><a routerLink="/rents">Rents</a></li>
-        <li *ngIf="user!=null"><a routerLink="/addrent">My business</a></li>
+        <li><a routerLink="/rent/rents">Rents</a></li>
+        <li *ngIf="user!=null"><a routerLink="/rent/rents/{{user.id}}">My business</a></li>
         <li><a routerLink="/contactus">Contact</a></li>
         <li *ngIf="user==null" ><a routerLink="/authentication/login">Login</a></li>
     </ul>

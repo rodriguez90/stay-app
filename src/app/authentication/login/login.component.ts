@@ -1,52 +1,101 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl
-} from '@angular/forms';
+// angular imports
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
-import {AuthService} from '../service/auth.service';
+// app imports
+//import {JwtService, OverlayService} from '../../../../projects/fbs-core/src/lib/services';
+import {AppConfigService} from '../../config';
+import {AuthService} from '../../core/services';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup;
+  // @ViewChild(RouterSpinnerComponent) spinner: RouterSpinnerComponent;
+  isVisible = false;
 
+  loginForm: FormGroup;
+  submitted = false;
+  loading = false;
+  returnUrl: string;
+  error = '';
+  hasError = false;
+  appName = '';
 
-  constructor(private fb: FormBuilder,
-              private router: Router,
-              private route: ActivatedRoute,
-              private authService: AuthService,
-  ) {}
+  constructor(
+      private formBuilder: FormBuilder,
+      private route: ActivatedRoute,
+      private router: Router,
+      private authService: AuthService,
+     //private jwtService: JwtService,
+     // private overlayService: OverlayService,
+      ) { }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+    /*SI EXISTE UN TOKEN SETEADO TE REDIRECCIONA AL DASHBOARD*/
+    // if (this.jwtService.getToken()) {
+    //   this.router.navigate([this.returnUrl]);
+    // }
+
+    this.loginForm = this.formBuilder.group({
+      email: ['root@gmail.com', [Validators.required, Validators.email]],
+      password: ['root*2019', Validators.required]
     });
+
+    this.appName = "Stay In Cuba";
   }
 
-  get f() { return this.form.controls; }
+  get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    this.authService.login(this.f.username.value, this.f.password.value).subscribe(user => {
-          this.authService.setUserActual(user);
-          this.router.navigate(['/welcome']);
-        },
-        error => {
-        });
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    if (!this.submitted) {
+      this.submitted = true;
+      this.loading = true;
+      // const pass = this.crypto.encode(this.f.password.value);
+      const email = this.f.email.value;
+      const i =  email.indexOf('@', email);
+      const usename = email.substring(0, i);
+      const pass = this.f.password.value;
+
+      this.authService.login(usename, pass).subscribe(user => {
+            this.submitted = false;
+            this.loading = false;
+            this.authService.setCurrentUser(user);
+            this.authService.loggedInSubject.next(true);
+
+            this.router.navigate(['']);
+
+          },
+          error => {
+            console.log('error', error);
+            this.error = error;
+            this.hasError = true;
+            this.submitted = false;
+            this.loading = false;
+          });
+    }
   }
 
-
-
-
-  isLogin() {
-    return this.form != null;
+  onKey() {
+    this.onSubmit();
   }
+
+  isFieldInvalid(field: string) {
+    return (
+        (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
+        (this.loginForm.get(field).untouched && this.loading)
+    );
+  }
+
 }

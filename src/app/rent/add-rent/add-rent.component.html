@@ -9,16 +9,16 @@
       <div fxLayout="row wrap">
         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
-            <input matInput placeholder="Business name" [formControl]="form.controls['name']">
+            <input matInput placeholder="Business name" [formControl]="form.controls['name']"  >
           </mat-form-field>
-          <mat-hint *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="text-danger font-14">You must include a first name.</mat-hint>
+          <mat-hint *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="text-danger font-14" >You must include the name of the business</mat-hint>
           <!--mat-hint *ngIf="form.controls['name'].hasError('minlength') && form.controls['name'].touched" class="text-danger font-14">Your first name must be at least 5 characters long.</mat-hint>
           <mat-hint *ngIf="form.controls['name'].hasError('maxlength') && form.controls['name'].touched" class="text-danger font-14">Your first name cannot exceed 10 characters.</mat-hint-->
         </div>
 
         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
-            <input matInput placeholder="Email Id" [formControl]="form.controls['email']" type="email">
+            <input matInput placeholder="Email" [formControl]="form.controls['email']" type="email">
           </mat-form-field>
           <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger font-14">You must include an email address.</small>
           <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger font-14">You must include a valid email address.</small>
@@ -28,7 +28,7 @@
           <mat-form-field>
             <input matInput placeholder="Ouner" [formControl]="form.controls['owner']">
           </mat-form-field>
-          <mat-hint *ngIf="form.controls['owner'].hasError('required') && form.controls['owner'].touched" class="text-danger font-14">You must include a first name.</mat-hint>
+          <mat-hint *ngIf="form.controls['owner'].hasError('required') && form.controls['owner'].touched" class="text-danger font-14">You must include the name of the owner.</mat-hint>
           <!--mat-hint *ngIf="form.controls['owner'].hasError('minlength') && form.controls['owner'].touched" class="text-danger font-14">Your first name must be at least 5 characters long.</mat-hint>
           <mat-hint *ngIf="form.controls['owner'].hasError('maxlength') && form.controls['owner'].touched" class="text-danger font-14">Your first name cannot exceed 10 characters.</mat-hint-->
         </div>
@@ -38,10 +38,10 @@
 
         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
-            <input matInput placeholder="Price per night (between 1 and 100)" [formControl]="form.controls['range']">
+            <input matInput placeholder="Price per night (between 1 and 100)" [formControl]="form.controls['price']">
           </mat-form-field>
-          <small *ngIf="form.controls['range'].hasError('required') && form.controls['range'].touched" class="text-danger font-14">You must enter a number.</small>
-          <small *ngIf="form.controls['range'].errors?.range && form.controls['range'].touched" class="text-danger font-14">Number should be between 1 and 100.</small>
+          <small *ngIf="form.controls['price'].hasError('required') && form.controls['price'].touched" class="text-danger font-14">You must enter a number.</small>
+          <small *ngIf="form.controls['price'].errors?.range && form.controls['price'].touched" class="text-danger font-14">Number should be between 1 and 100.</small>
         </div>
 
 
@@ -55,9 +55,9 @@
 
         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <mat-form-field>
-            <input matInput placeholder="Address" [formControl]="form.controls['name']">
+            <input matInput placeholder="Address" [formControl]="form.controls['address']">
           </mat-form-field>
-          <mat-hint *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="text-danger font-14">You must include a first name.</mat-hint>
+          <mat-hint *ngIf="form.controls['address'].hasError('address') && form.controls['address'].touched" class="text-danger font-14">You must include an address.</mat-hint>
           <!--mat-hint *ngIf="form.controls['name'].hasError('minlength') && form.controls['name'].touched" class="text-danger font-14">Your first name must be at least 5 characters long.</mat-hint>
           <mat-hint *ngIf="form.controls['name'].hasError('maxlength') && form.controls['name'].touched" class="text-danger font-14">Your first name cannot exceed 10 characters.</mat-hint-->
         </div>
@@ -66,13 +66,16 @@
 
         <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
           <div>Services</div>
-          <mat-checkbox class="example-margin" style="margin: 5px;" >  <mat-icon  >local_hotel</mat-icon>  </mat-checkbox>
+
+          <mat-checkbox id="" class="example-margin" style="margin: 5px;" *ngFor="let item of allServices; let i = index;"  (click)="toggle(item.code)" checked="{{checkedService(item)}}">  <mat-icon  >{{item.code}}</mat-icon>  </mat-checkbox>
+
+          <!--mat-checkbox class="example-margin" style="margin: 5px;" >  <mat-icon  >local_hotel</mat-icon>  </mat-checkbox>
           <mat-checkbox class="example-margin" style="margin: 5px;" >  <mat-icon  >restaurant</mat-icon>  </mat-checkbox>
           <mat-checkbox class="example-margin" style="margin: 5px;" >  <mat-icon  >ac_unit</mat-icon>  </mat-checkbox>
           <mat-checkbox class="example-margin" style="margin: 5px;" >  <mat-icon  >directions_car</mat-icon>  </mat-checkbox>
           <mat-checkbox class="example-margin" style="margin: 5px;" >  <mat-icon  >wifi</mat-icon>  </mat-checkbox>
           <mat-checkbox class="example-margin" style="margin: 5px;" >  <mat-icon  >live_tv</mat-icon>  </mat-checkbox>
-          <mat-checkbox class="example-margin" style="margin: 5px;" >  <img style="margin-left: 5px;" src="../../assets/images/bath.png" >  </mat-checkbox>
+          <mat-checkbox class="example-margin" style="margin: 5px;" >  <img style="margin-left: 5px;" src="../../assets/images/bath.png" >  </mat-checkbox -->
 
         </div>
 
@@ -90,7 +93,7 @@
               </label>
             </div>
             <div fxFlex.gt-sm="50" fxFlex="100">
-              <img class="img-responsive rounded" src="{{imageUrl}}" >
+              <img *ngIf="imageUrl" class="img-responsive rounded" src="{{imageUrl}}" >
             </div>
 
 
@@ -100,7 +103,7 @@
         <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
           <mat-form-field>
             <mat-label>Description</mat-label>
-            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5" [formControl]="form.controls['description']"></textarea>
           </mat-form-field>
         </div>
 
@@ -109,6 +112,7 @@
 
       <mat-card-actions>
         <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+        <button mat-raised-button color="warn" fxFlexAlign="end" (click)="onCancel();"  >Cancel</button>
       </mat-card-actions>
 
 
