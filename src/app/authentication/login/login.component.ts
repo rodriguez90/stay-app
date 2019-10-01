@@ -3,9 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-// app imports
-//import {JwtService, OverlayService} from '../../../../projects/fbs-core/src/lib/services';
-import {AppConfigService} from '../../config';
+
 import {AuthService} from '../../core/services';
 
 @Component({
@@ -14,7 +12,7 @@ import {AuthService} from '../../core/services';
 
 })
 export class LoginComponent implements OnInit {
-  // @ViewChild(RouterSpinnerComponent) spinner: RouterSpinnerComponent;
+
   isVisible = false;
 
   loginForm: FormGroup;
@@ -45,8 +43,8 @@ export class LoginComponent implements OnInit {
     // }
 
     this.loginForm = this.formBuilder.group({
-      email: ['root@gmail.com', [Validators.required, Validators.email]],
-      password: ['root*2019', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
 
     this.appName = "Stay In Cuba";
