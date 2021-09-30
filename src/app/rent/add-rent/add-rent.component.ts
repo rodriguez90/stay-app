@@ -1,4 +1,4 @@
-  import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -6,13 +6,20 @@ import {
   FormControl
 } from '@angular/forms';
 
-  import {Location} from '@angular/common';
+import {Location} from '@angular/common';
 
 import {CustomValidators} from 'ng2-validation';
-  import {Rent} from '../interfaces/rent';
-  import {Service} from "../interfaces/service";
-  import {RentService} from "../../core/services/rentService";
-  import {ActivatedRoute, Router} from "@angular/router";
+
+import {
+  Service,
+  Rent
+} from '../../../../projects/Api/lib/models';
+import {User} from '../../authentication/models/user.model';
+import {AuthService} from '../../core/services/http/auth.service';
+import {RentService} from '../../core/services/http/rent.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FicheroModelo} from '../../../../projects/fbs-shared/src/lib/models';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-add-rent',
@@ -24,12 +31,17 @@ export class AddRentComponent implements OnInit {
   public imageUrl: string;
   currentModel: Rent = null;
   id: number;
-  currenServices: Service[] = [];
   allServices: Service[];
   update: boolean;
+  user: User;
+  imageToUpload: File = null;
+  images: FicheroModelo[] = [];
+  uploadedFilesSubject = new BehaviorSubject<any>(null);
+  uploadedFiles$ = this.uploadedFilesSubject.asObservable();
 
   constructor(private fb: FormBuilder,
               private rentService: RentService,
+              private authService: AuthService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
@@ -58,7 +70,6 @@ export class AddRentComponent implements OnInit {
         null,
         Validators.compose([
           Validators.required,
-          CustomValidators.range([1, 100])
         ])
       ],
       phone: [
@@ -75,20 +86,26 @@ export class AddRentComponent implements OnInit {
       ]
     });
 
-    this.allServices = this.rentService.getAllServices();
+    this.rentService.serviceList().subscribe(services => {
+      console.log('services', services);
+      this.allServices = services;
+    });
+
+    this.user = this.authService.currentUser;
+
+
 
     this.id = +this.route.snapshot.paramMap.get('id');
     if (this.id != 0) {
       this.currentModel = this.rentService.getRent(this.id);
       this.update = true;
       this.form.controls['name'].setValue(this.currentModel.name);
-      this.form.controls['owner'].setValue(this.currentModel.owner);
       this.form.controls['email'].setValue(this.currentModel.email);
       this.form.controls['price'].setValue(this.currentModel.price);
       this.form.controls['phone'].setValue(this.currentModel.phone);
-      this.form.controls['address'].setValue(this.currentModel.address);
+      this.form.controls['address'].setValue(this.currentModel.adress);
       this.form.controls['description'].setValue(this.currentModel.description);
-      this.imageUrl = this.currentModel.img;
+      this.imageUrl = this.currentModel.image;
     }
 
   }
@@ -98,65 +115,109 @@ export class AddRentComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
-    let fileToUpload =  files[0] as File;
+
+    this.imageToUpload =  files[0] as File;
 
     const reader = new FileReader();
-    reader.readAsDataURL(fileToUpload)
+    reader.readAsDataURL(this.imageToUpload);
     reader.onload = () => {
       this.imageUrl = reader.result.toString();
     }
-
   }
 
-  onSaveModel() {
+  onFilesSelected(files: any) {
+    if (files.length === 0) { return; }
+
+    // @ts-ignore
+    for (const file: File of files) {
+      const mimeType = file.type;
+      if (mimeType.match(/image\/*/) == null) {
+        continue;
+      }
+
+      if (file.size / 1024 > 1024 ) {
+        // TODO notifiy error
+        continue;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (_event) => {
+        const image: FicheroModelo = {
+          id: null,
+          path: reader.result,
+          file: file
+        };
+        this.images.push(image);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onSubmit() {
     let value = this.form.value;
+
+    if (this.currentModel == null) {
+      this.currentModel =  {name: '', description: '', price: 0, phone: '', email: '', adress: ''};
+    }
+
     if (value['name'] !== '') {
       this.currentModel.name = value['name'];
-    }
-    if (value['email'] !== '') {
-      this.currentModel.email = value['email'];
-    }
-    if (value['owner'] !== '') {
-      this.currentModel.owner = value['owner'];
-    }
-    if (value['owner'] !== '') {
-      this.currentModel.owner = value['owner'];
-    }
-    if (value['phone'] !== '') {
-      this.currentModel.phone = value['phone'];
-    }
-    if (value['address'] !== '') {
-      this.currentModel.address = value['address'];
     }
     if (value['description'] !== '') {
       this.currentModel.description = value['description'];
     }
-
-    if (this.currentModel && this.currentModel.id !== null) {//update
-
+    if (value['price'] !== '') {
+      this.currentModel.price = parseInt(value['price']);
+    }
+    if (value['phone'] !== '') {
+      this.currentModel.phone = value['phone'];
+    }
+    if (value['email'] !== '') {
+      this.currentModel.email = value['email'];
     }
 
+    if (value['address'] !== '') {
+      this.currentModel.adress = value['address'];
+    }
 
+    if (this.currentModel.id == null) {
+      this.currentModel.user = this.user.id;
+      this.currentModel.isActive = true;
 
+      this.rentService.create(this.currentModel).subscribe((newRent: Rent) => {
+        this.resetForm();
+        this.router.navigate(['/rent/list'])
+      });
+    } else {
+      this.rentService.update(this.currentModel).subscribe((newRent: Rent) => {
+        this.resetForm();
+      });
+    }
   }
 
-    onCancel() {
-        this.form.reset();
-        this.location.back();
-        /*
-        if (this.update) {
-            this.router.navigate(['rent/detailrent/' + this.currentModel.id]);
-        } else {
-            this.router.navigate(['/rent/rents/' + this.currentModel.ownerid]);
-        }*/
+
+  resetForm() {
+    this.form.reset();
+    this.currentModel = null;
+  }
+
+  onCancel() {
+    this.form.reset();
+    this.location.back();
+    /*
+    if (this.update) {
+        this.router.navigate(['rent/detailrent/' + this.currentModel.id]);
+    } else {
+        this.router.navigate(['/rent/list/' + this.currentModel.ownerid]);
+    }*/
   }
 
   checkedService(item) {
     if (this.update) {
-      const code = this.currentModel.services.find(x => x.code === item.code);
+      const code = this.currentModel.services.find(x => x === item.id);
 
       if ( code ) {
-        console.log(item.code);
+        console.log(item.cssIcon);
         return 'checked';
       }
     }
@@ -164,8 +225,7 @@ export class AddRentComponent implements OnInit {
   }
 
   toggle(checkbox) {
-    this.currenServices.push({code: checkbox});
-    console.log(this.currenServices);
+    console.log(checkbox.css_icon);
   }
 
 }

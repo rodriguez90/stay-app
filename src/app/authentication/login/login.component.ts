@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
             this.loading = false;
             this.authService.setCurrentUser(user);
             this.authService.loggedInSubject.next(true);
+            localStorage.setItem('user', JSON.stringify(user) );
 
             this.router.navigate(['']);
 

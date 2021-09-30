@@ -13,6 +13,7 @@ import {
 } from './accordion';
 
 import {MaterialModule} from '../material.module';
+import {CustomFormsModule} from 'ng2-validation';
 //page
 
 
@@ -22,19 +23,24 @@ import {MaterialModule} from '../material.module';
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective
-      ],
+  ],
 
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    AccordionDirective
-  ],
-  imports: [
-    BrowserAnimationsModule,
+    AccordionDirective,
     MaterialModule,
     FlexLayoutModule,
-  FormsModule,
-  ReactiveFormsModule,
+    FormsModule,
+    CustomFormsModule,
+    ReactiveFormsModule,
+  ],
+  imports: [
+    MaterialModule,
+    FlexLayoutModule,
+    FormsModule,
+    CustomFormsModule,
+    ReactiveFormsModule,
   ],
   providers: [MenuItems],
   schemas: [

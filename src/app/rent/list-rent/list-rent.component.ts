@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {Rent} from '../interfaces/rent';
-import {RentService} from '../../core/services/rentService';
+
+import {RentService} from '../../core/services/http/rent.service';
 import {Subscription} from 'rxjs/Rx';
 import {User} from '../../authentication/models/user.model';
-import {AuthService} from '../../core/services/auth.service';
+import {AuthService} from '../../core/services/http/auth.service';
 import {ActivatedRoute} from '@angular/router';
-
+import {
+  Rent
+} from '../../../../projects/Api/lib/models';
 
 @Component({
   selector: 'app-list-rent',
@@ -24,17 +26,6 @@ export class ListRentComponent implements OnInit {
   ngOnInit() {
     this.ownerid = +this.route.snapshot.paramMap.get('ownerid');
     this.rents = this.rentService.getRents(this.ownerid);
-
-    /*
-    this.subUser = this.authService.userActual.subscribe( () => {
-      this.user = this.authService.currentUserValue;
-    });
-*/
-    if (this.user == null) {
-      this.user = JSON.parse(localStorage.getItem('user'));
-    }
+    this.user = this.authService.currentUser;
   }
-
-
-
 }

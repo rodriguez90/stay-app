@@ -270,123 +270,6 @@ export const VerifyJSONWebToken: msRest.CompositeMapper = {
   }
 };
 
-export const Departament: msRest.CompositeMapper = {
-  serializedName: "Departament",
-  type: {
-    name: "Composite",
-    className: "Departament",
-    modelProperties: {
-      id: {
-        readOnly: true,
-        serializedName: "id",
-        type: {
-          name: "Number"
-        }
-      },
-      name: {
-        required: true,
-        serializedName: "name",
-        constraints: {
-          MaxLength: 255,
-          MinLength: 1
-        },
-        type: {
-          name: "String"
-        }
-      },
-      description: {
-        serializedName: "description",
-        type: {
-          name: "String"
-        }
-      },
-      isActive: {
-        serializedName: "is_active",
-        type: {
-          name: "Boolean"
-        }
-      },
-      createdAt: {
-        readOnly: true,
-        serializedName: "created_at",
-        type: {
-          name: "DateTime"
-        }
-      },
-      updatedAt: {
-        readOnly: true,
-        serializedName: "updated_at",
-        type: {
-          name: "DateTime"
-        }
-      }
-    }
-  }
-};
-
-export const DocumentType: msRest.CompositeMapper = {
-  serializedName: "DocumentType",
-  type: {
-    name: "Composite",
-    className: "DocumentType",
-    modelProperties: {
-      id: {
-        readOnly: true,
-        serializedName: "id",
-        type: {
-          name: "Number"
-        }
-      },
-      name: {
-        required: true,
-        serializedName: "name",
-        constraints: {
-          MaxLength: 255,
-          MinLength: 1
-        },
-        type: {
-          name: "String"
-        }
-      },
-      description: {
-        nullable: true,
-        serializedName: "description",
-        type: {
-          name: "String"
-        }
-      },
-      isActive: {
-        serializedName: "is_active",
-        type: {
-          name: "Boolean"
-        }
-      },
-      upload: {
-        nullable: true,
-        readOnly: true,
-        serializedName: "upload",
-        type: {
-          name: "String"
-        }
-      },
-      createdAt: {
-        readOnly: true,
-        serializedName: "created_at",
-        type: {
-          name: "DateTime"
-        }
-      },
-      updatedAt: {
-        readOnly: true,
-        serializedName: "updated_at",
-        type: {
-          name: "DateTime"
-        }
-      }
-    }
-  }
-};
-
 export const User: msRest.CompositeMapper = {
   serializedName: "User",
   type: {
@@ -596,11 +479,11 @@ export const Person: msRest.CompositeMapper = {
   }
 };
 
-export const Procedure: msRest.CompositeMapper = {
-  serializedName: "Procedure",
+export const Rent: msRest.CompositeMapper = {
+  serializedName: "Rent",
   type: {
     name: "Composite",
-    className: "Procedure",
+    className: "Rent",
     modelProperties: {
       id: {
         readOnly: true,
@@ -636,6 +519,53 @@ export const Procedure: msRest.CompositeMapper = {
           name: "Boolean"
         }
       },
+      price: {
+        required: true,
+        serializedName: "price",
+        type: {
+          name: "Number"
+        }
+      },
+      phone: {
+        required: true,
+        serializedName: "phone",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      email: {
+        required: true,
+        serializedName: "email",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      adress: {
+        required: true,
+        serializedName: "adress",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      image: {
+        readOnly: true,
+        serializedName: "image",
+        type: {
+          name: "String"
+        }
+      },
       createdAt: {
         readOnly: true,
         serializedName: "created_at",
@@ -648,6 +578,236 @@ export const Procedure: msRest.CompositeMapper = {
         serializedName: "updated_at",
         type: {
           name: "DateTime"
+        }
+      },
+      user: {
+        nullable: true,
+        serializedName: "user",
+        type: {
+          name: "Number"
+        }
+      },
+      services: {
+        readOnly: true,
+        serializedName: "services",
+        constraints: {
+          UniqueItems: true
+        },
+        type: {
+          name: "Sequence",
+          element: {
+            type: {
+              name: "Number"
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+export const FileListSerialize: msRest.CompositeMapper = {
+  serializedName: "FileListSerialize",
+  type: {
+    name: "Composite",
+    className: "FileListSerialize",
+    modelProperties: {
+      images: {
+        required: true,
+        serializedName: "images",
+        type: {
+          name: "Sequence",
+          element: {
+            type: {
+              name: "String"
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+export const Service: msRest.CompositeMapper = {
+  serializedName: "Service",
+  type: {
+    name: "Composite",
+    className: "Service",
+    modelProperties: {
+      id: {
+        readOnly: true,
+        serializedName: "id",
+        type: {
+          name: "Number"
+        }
+      },
+      name: {
+        required: true,
+        serializedName: "name",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      cssIcon: {
+        required: true,
+        serializedName: "css_icon",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      createdAt: {
+        readOnly: true,
+        serializedName: "created_at",
+        type: {
+          name: "DateTime"
+        }
+      },
+      updatedAt: {
+        readOnly: true,
+        serializedName: "updated_at",
+        type: {
+          name: "DateTime"
+        }
+      }
+    }
+  }
+};
+
+export const RentCreate: msRest.CompositeMapper = {
+  serializedName: "RentCreate",
+  type: {
+    name: "Composite",
+    className: "RentCreate",
+    modelProperties: {
+      id: {
+        readOnly: true,
+        serializedName: "id",
+        type: {
+          name: "Number"
+        }
+      },
+      name: {
+        required: true,
+        serializedName: "name",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      description: {
+        required: true,
+        serializedName: "description",
+        constraints: {
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      isActive: {
+        serializedName: "is_active",
+        type: {
+          name: "Boolean"
+        }
+      },
+      user: {
+        nullable: true,
+        serializedName: "user",
+        type: {
+          name: "Number"
+        }
+      },
+      price: {
+        required: true,
+        serializedName: "price",
+        type: {
+          name: "Number"
+        }
+      },
+      phone: {
+        required: true,
+        serializedName: "phone",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      email: {
+        required: true,
+        serializedName: "email",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      adress: {
+        required: true,
+        serializedName: "adress",
+        constraints: {
+          MaxLength: 255,
+          MinLength: 1
+        },
+        type: {
+          name: "String"
+        }
+      },
+      image: {
+        readOnly: true,
+        serializedName: "image",
+        type: {
+          name: "String"
+        }
+      },
+      images: {
+        required: true,
+        serializedName: "images",
+        type: {
+          name: "Composite",
+          className: "FileListSerialize"
+        }
+      },
+      createdAt: {
+        readOnly: true,
+        serializedName: "created_at",
+        type: {
+          name: "DateTime"
+        }
+      },
+      updatedAt: {
+        readOnly: true,
+        serializedName: "updated_at",
+        type: {
+          name: "DateTime"
+        }
+      },
+      services: {
+        required: true,
+        serializedName: "services",
+        type: {
+          name: "Sequence",
+          element: {
+            type: {
+              name: "Composite",
+              className: "Service"
+            }
+          }
         }
       }
     }

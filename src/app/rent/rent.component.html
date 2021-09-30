@@ -3,60 +3,21 @@
   <a routerLink="/rent/detailrent/{{rent.id}}"   style="color: black;">
 
     <mat-card-header>
-
-
-          <mat-card-title>{{rent.name}}</mat-card-title>
-          <mat-card-subtitle>{{rent.owner}}</mat-card-subtitle>
-
-
-
+      <mat-card-title>{{rent.name}}</mat-card-title>
+      <mat-card-subtitle>{{rent.owner}}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content style="margin-bottom: 0px;padding: 10px 0px 10px 0px;">
-
-
       <div fxLayout="row wrap">
 
-        <div [ngStyle]="{'background': 'url('+ rent.img+')', 'background-repeat': 'no-repeat'}"    style="height: 250px; background-size: cover; "  fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-
-
-
-
+        <div [ngStyle]="{'background': 'url('+ rent.image+ ')', 'background-repeat': 'no-repeat'}"    style="height: 250px; background-size: cover; "  fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         </div>
         <div style="padding: 12px;"    fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
           <mat-card-actions>
-              <mat-icon *ngFor="let item of rent.services; let i = index;" style="margin: 5px;" >{{item.code}}</mat-icon>
-
-            <!--div *ngIf="user && user.id == rent.ownerid"  style="position: absolute;z-index: 100;"  >
-              <a routerLink="/rent/addrent/{{rent.id}}"  style="margin-left:25px;color: #e9ab2e" ><mat-icon   > edit </mat-icon></a>
-              <a routerLink="/rent/delete/{{rent.id}}" style="margin-left:5px;color: red" ><mat-icon   > delete </mat-icon></a>
-            </div-->
-
+            <mat-icon *ngFor="let item of rent.services; let i = index;" style="margin: 5px;" >{{item.code}}</mat-icon>
           </mat-card-actions>
-
-
         </div>
-
       </div>
-
-
-
-
-      <!--mat-checkbox *ngFor="let item of servics; let i = index;" class="example-margin" style="margin: 5px;" [checked]="item.checked" (change)="onChange($event, i, item)">  <mat-icon  >{{item.label}}</mat-icon>  </mat-checkbox-->
-
-
-      <!--mat-card-actions>
-
-
-        <mat-icon *ngIf="rallServicesices.local_hotel" style="margin: 5px;" >local_hotel</mat-icon>
-        <mat-icon *ngIf="rallServicesices.restaurant"  style="margin: 5px;" >restaurant</mat-icon>
-        <mat-icon *ngIf="rallServicesices.ac_unit"     style="margin: 5px;" >ac_unit</mat-icon>
-        <mat-icon *ngIf="rallServicesices.directions_car" style="margin: 5px;"  >directions_car</mat-icon>
-        <mat-icon *ngIf="rallServicesices.wifi"  style="margin: 5px;" >wifi</mat-icon>
-        <mat-icon *ngIf="rallServicesices.live_tv"  style="margin: 5px;" >live_tv</mat-icon>
-        <img *ngIf="rallServicesices.live_tv"  style="margin-left: 5px;" src="../../assets/images/bath.png" >
-
-      </mat-card-actions-->
     </mat-card-content>
   </a>
 </mat-card>

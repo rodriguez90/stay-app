@@ -5,9 +5,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
-import { RentService } from './services/rentService';
-import {Api} from "./services/api";
-import {AuthService} from "./services/auth.service";
+import {Api} from "./services/http/api";
+import {AuthService, RentService} from './services';
 
 
 @NgModule({
@@ -18,7 +17,7 @@ import {AuthService} from "./services/auth.service";
     ],
     exports: [],
     providers: [
-        RentService, Api, AuthService
+      Api, RentService, AuthService
 
     ]
 })

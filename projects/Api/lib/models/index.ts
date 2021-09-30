@@ -145,79 +145,6 @@ export interface VerifyJSONWebToken {
 
 /**
  * @interface
- * An interface representing Departament.
- */
-export interface Departament {
-  /**
-   * @member {number} [id] ID. **NOTE: This property will not be serialized. It
-   * can only be populated by the server.**
-   */
-  readonly id?: number;
-  /**
-   * @member {string} name Nombre.
-   */
-  name: string;
-  /**
-   * @member {string} [description] Descripción.
-   */
-  description?: string;
-  /**
-   * @member {boolean} [isActive] Esta activo.
-   */
-  isActive?: boolean;
-  /**
-   * @member {Date} [createdAt] Created at. **NOTE: This property will not be
-   * serialized. It can only be populated by the server.**
-   */
-  readonly createdAt?: Date;
-  /**
-   * @member {Date} [updatedAt] Updated at. **NOTE: This property will not be
-   * serialized. It can only be populated by the server.**
-   */
-  readonly updatedAt?: Date;
-}
-
-/**
- * @interface
- * An interface representing DocumentType.
- */
-export interface DocumentType {
-  /**
-   * @member {number} [id] ID. **NOTE: This property will not be serialized. It
-   * can only be populated by the server.**
-   */
-  readonly id?: number;
-  /**
-   * @member {string} name Nombre.
-   */
-  name: string;
-  /**
-   * @member {string} [description] Descripción.
-   */
-  description?: string;
-  /**
-   * @member {boolean} [isActive] Esta activo.
-   */
-  isActive?: boolean;
-  /**
-   * @member {string} [upload] Enlace de descarga. **NOTE: This property will
-   * not be serialized. It can only be populated by the server.**
-   */
-  readonly upload?: string;
-  /**
-   * @member {Date} [createdAt] Created at. **NOTE: This property will not be
-   * serialized. It can only be populated by the server.**
-   */
-  readonly createdAt?: Date;
-  /**
-   * @member {Date} [updatedAt] Updated at. **NOTE: This property will not be
-   * serialized. It can only be populated by the server.**
-   */
-  readonly updatedAt?: Date;
-}
-
-/**
- * @interface
  * An interface representing User.
  * @summary User
  *
@@ -330,26 +257,47 @@ export interface Person {
 
 /**
  * @interface
- * An interface representing Procedure.
+ * An interface representing Rent.
  */
-export interface Procedure {
+export interface Rent {
   /**
    * @member {number} [id] ID. **NOTE: This property will not be serialized. It
    * can only be populated by the server.**
    */
   readonly id?: number;
   /**
-   * @member {string} name Nombre.
+   * @member {string} name Name.
    */
   name: string;
   /**
-   * @member {string} description Descripción.
+   * @member {string} description Description.
    */
   description: string;
   /**
-   * @member {boolean} [isActive] Esta activo.
+   * @member {boolean} [isActive] Status.
    */
   isActive?: boolean;
+  /**
+   * @member {number} price Price.
+   */
+  price: number;
+  /**
+   * @member {string} phone Phone.
+   */
+  phone: string;
+  /**
+   * @member {string} email Email.
+   */
+  email: string;
+  /**
+   * @member {string} adress Adress.
+   */
+  adress: string;
+  /**
+   * @member {string} [image] Imagen. **NOTE: This property will not be
+   * serialized. It can only be populated by the server.**
+   */
+  readonly image?: string;
   /**
    * @member {Date} [createdAt] Created at. **NOTE: This property will not be
    * serialized. It can only be populated by the server.**
@@ -360,6 +308,125 @@ export interface Procedure {
    * serialized. It can only be populated by the server.**
    */
   readonly updatedAt?: Date;
+  /**
+   * @member {number} [user] User.
+   */
+  user?: number;
+  /**
+   * @member {number[]} [services] **NOTE: This property will not be
+   * serialized. It can only be populated by the server.**
+   */
+  readonly services?: number[];
+}
+
+/**
+ * @interface
+ * An interface representing FileListSerialize.
+ * @summary Images
+ *
+ */
+export interface FileListSerialize {
+  /**
+   * @member {string[]} images
+   */
+  images: string[];
+}
+
+/**
+ * @interface
+ * An interface representing Service.
+ */
+export interface Service {
+  /**
+   * @member {number} [id] ID. **NOTE: This property will not be serialized. It
+   * can only be populated by the server.**
+   */
+  readonly id?: number;
+  /**
+   * @member {string} name Nombre.
+   */
+  name: string;
+  /**
+   * @member {string} cssIcon Icono.
+   */
+  cssIcon: string;
+  /**
+   * @member {Date} [createdAt] Created at. **NOTE: This property will not be
+   * serialized. It can only be populated by the server.**
+   */
+  readonly createdAt?: Date;
+  /**
+   * @member {Date} [updatedAt] Updated at. **NOTE: This property will not be
+   * serialized. It can only be populated by the server.**
+   */
+  readonly updatedAt?: Date;
+}
+
+/**
+ * @interface
+ * An interface representing RentCreate.
+ */
+export interface RentCreate {
+  /**
+   * @member {number} [id] ID. **NOTE: This property will not be serialized. It
+   * can only be populated by the server.**
+   */
+  readonly id?: number;
+  /**
+   * @member {string} name Name.
+   */
+  name: string;
+  /**
+   * @member {string} description Description.
+   */
+  description: string;
+  /**
+   * @member {boolean} [isActive] Status.
+   */
+  isActive?: boolean;
+  /**
+   * @member {number} [user] User.
+   */
+  user?: number;
+  /**
+   * @member {number} price Price.
+   */
+  price: number;
+  /**
+   * @member {string} phone Phone.
+   */
+  phone: string;
+  /**
+   * @member {string} email Email.
+   */
+  email: string;
+  /**
+   * @member {string} adress Adress.
+   */
+  adress: string;
+  /**
+   * @member {string} [image] Imagen. **NOTE: This property will not be
+   * serialized. It can only be populated by the server.**
+   */
+  readonly image?: string;
+  /**
+   * @member {FileListSerialize} images
+   */
+  images: FileListSerialize;
+  /**
+   * @member {Date} [createdAt] Created at. **NOTE: This property will not be
+   * serialized. It can only be populated by the server.**
+   */
+  readonly createdAt?: Date;
+  /**
+   * @member {Date} [updatedAt] Updated at. **NOTE: This property will not be
+   * serialized. It can only be populated by the server.**
+   */
+  readonly updatedAt?: Date;
+  /**
+   * @member {Service[]} services
+   */
+  services: Service[];
 }
 
 /**
@@ -671,196 +738,6 @@ export type AuthJwtCreateResponse = JSONWebToken & {
 /**
  * Contains response data for the list operation.
  */
-export type DepartamentListResponse = Array<Departament> & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Departament[];
-    };
-};
-
-/**
- * Contains response data for the create operation.
- */
-export type DepartamentCreateResponse = Departament & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Departament;
-    };
-};
-
-/**
- * Contains response data for the read operation.
- */
-export type DepartamentReadResponse = Departament & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Departament;
-    };
-};
-
-/**
- * Contains response data for the update operation.
- */
-export type DepartamentUpdateResponse = Departament & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Departament;
-    };
-};
-
-/**
- * Contains response data for the update1 operation.
- */
-export type DepartamentUpdate1Response = Departament & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Departament;
-    };
-};
-
-/**
- * Contains response data for the list operation.
- */
-export type DocumentTypeListResponse = Array<DocumentType> & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: DocumentType[];
-    };
-};
-
-/**
- * Contains response data for the create operation.
- */
-export type DocumentTypeCreateResponse = DocumentType & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: DocumentType;
-    };
-};
-
-/**
- * Contains response data for the read operation.
- */
-export type DocumentTypeReadResponse = DocumentType & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: DocumentType;
-    };
-};
-
-/**
- * Contains response data for the update operation.
- */
-export type DocumentTypeUpdateResponse = DocumentType & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: DocumentType;
-    };
-};
-
-/**
- * Contains response data for the update1 operation.
- */
-export type DocumentTypeUpdate1Response = DocumentType & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: DocumentType;
-    };
-};
-
-/**
- * Contains response data for the list operation.
- */
 export type PersonListResponse = Array<Person> & {
   /**
    * The underlying HTTP response.
@@ -954,101 +831,6 @@ export type PersonUpdate1Response = Person & {
 };
 
 /**
- * Contains response data for the list operation.
- */
-export type ProcedureListResponse = Array<Procedure> & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Procedure[];
-    };
-};
-
-/**
- * Contains response data for the create operation.
- */
-export type ProcedureCreateResponse = Procedure & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Procedure;
-    };
-};
-
-/**
- * Contains response data for the read operation.
- */
-export type ProcedureReadResponse = Procedure & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Procedure;
-    };
-};
-
-/**
- * Contains response data for the update operation.
- */
-export type ProcedureUpdateResponse = Procedure & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Procedure;
-    };
-};
-
-/**
- * Contains response data for the update1 operation.
- */
-export type ProcedureUpdate1Response = Procedure & {
-  /**
-   * The underlying HTTP response.
-   */
-  _response: msRest.HttpResponse & {
-      /**
-       * The response body as text (string format)
-       */
-      bodyAsText: string;
-      /**
-       * The response body as parsed JSON or XML
-       */
-      parsedBody: Procedure;
-    };
-};
-
-/**
  * Contains response data for the create operation.
  */
 export type RegisterCreateResponse = Person & {
@@ -1064,6 +846,196 @@ export type RegisterCreateResponse = Person & {
        * The response body as parsed JSON or XML
        */
       parsedBody: Person;
+    };
+};
+
+/**
+ * Contains response data for the list operation.
+ */
+export type RentListResponse = Array<Rent> & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: Rent[];
+    };
+};
+
+/**
+ * Contains response data for the create operation.
+ */
+export type RentCreateResponse = RentCreate & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: RentCreate;
+    };
+};
+
+/**
+ * Contains response data for the read operation.
+ */
+export type RentReadResponse = Rent & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: Rent;
+    };
+};
+
+/**
+ * Contains response data for the update operation.
+ */
+export type RentUpdateResponse = RentCreate & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: RentCreate;
+    };
+};
+
+/**
+ * Contains response data for the update1 operation.
+ */
+export type RentUpdate1Response = Rent & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: Rent;
+    };
+};
+
+/**
+ * Contains response data for the list operation.
+ */
+export type ServiceListResponse = Array<Service> & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: Service[];
+    };
+};
+
+/**
+ * Contains response data for the create operation.
+ */
+export type ServiceCreateResponse = Service & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: Service;
+    };
+};
+
+/**
+ * Contains response data for the read operation.
+ */
+export type ServiceReadResponse = Service & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: Service;
+    };
+};
+
+/**
+ * Contains response data for the update operation.
+ */
+export type ServiceUpdateResponse = Service & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: Service;
+    };
+};
+
+/**
+ * Contains response data for the update1 operation.
+ */
+export type ServiceUpdate1Response = Service & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: msRest.HttpResponse & {
+      /**
+       * The response body as text (string format)
+       */
+      bodyAsText: string;
+      /**
+       * The response body as parsed JSON or XML
+       */
+      parsedBody: Service;
     };
 };
 

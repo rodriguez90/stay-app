@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import {AuthService} from '../../../core/services/auth.service';
+import {AuthService} from '../../../core/services/http/auth.service';
 import {User} from '../../../authentication/models/user.model';
 import {Subscription} from 'rxjs/Rx';
 

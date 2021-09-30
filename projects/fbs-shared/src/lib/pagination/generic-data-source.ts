@@ -12,9 +12,13 @@ import {PaginationModel} from './pagination.model';
 import {ResourceService} from '../../../../fbs-core/src/lib/services';
 import {QueryOptions} from '../utils';
 
+export type ServiceCallbackFunction = (query: QueryOptions) => Observable<any>;
+
 export class GenericDataSource <T> implements DataSource<T> {
 
     private dataSubject =  new BehaviorSubject<T[]>([]);
+    private paginationModelSubject =  new BehaviorSubject<PaginationModel<T>>(null);
+    public paginationModel$ =  this.paginationModelSubject.asObservable();
     private loadingSubject =  new BehaviorSubject<boolean>(false);
     public loading$ =  this.loadingSubject.asObservable();
     private mTotalElementos = 0;
@@ -22,7 +26,8 @@ export class GenericDataSource <T> implements DataSource<T> {
     private newElements: T[] = [];
 
     constructor(private service?: ResourceService<T>,
-                public queryOptions?: QueryOptions) {}
+                public queryOptions: QueryOptions = new QueryOptions(), private callBack: string = null) {
+    }
 
     connect(collectionViewer: CollectionViewer): Observable<T[]> {
         return this.dataSubject.asObservable();
@@ -33,19 +38,30 @@ export class GenericDataSource <T> implements DataSource<T> {
         this.loadingSubject.complete();
     }
 
-    fetchData(id?: number) {
-
+    fetchData() {
         if (this.service == null) { return this.dataSubject.next([]); }
 
         this.loadingSubject.next(true);
 
-        this.service.listPagination(this.queryOptions).pipe(
-            catchError(() => of([])),
-            finalize(() => this.loadingSubject.next(false))
-        ).subscribe((response: PaginationModel<T>) => {
-            this.mTotalElementos = response.totalElementos;
-            return this.dataSubject.next(response.datos as T[]);
-        });
+        if ( this.callBack == null) {
+            this.service.listPagination(this.queryOptions).pipe(
+                catchError(() => of([])),
+                finalize(() => this.loadingSubject.next(false))
+            ).subscribe((response: PaginationModel<T>) => {
+                this.mTotalElementos = response.totalElementos;
+                this.paginationModelSubject.next(response);
+                return this.dataSubject.next(response.datos as T[]);
+            });
+        } else {
+            this.service[this.callBack](this.queryOptions).pipe(
+                catchError(() => of([])),
+                finalize(() => this.loadingSubject.next(false))
+            ).subscribe((response: PaginationModel<T>) => {
+                this.mTotalElementos = response.totalElementos;
+                this.paginationModelSubject.next(response);
+                return this.dataSubject.next(response.datos as T[]);
+            });
+        }
     }
 
     get data(): T[] { return this.dataSubject.value; }
@@ -116,6 +132,10 @@ export class GenericDataSource <T> implements DataSource<T> {
 
     get cantidadElementos(): number {
         return this.queryOptions.cantidadElementos;
+    }
+
+    get paginationModel(): PaginationModel<T> {
+        return this.paginationModelSubject.value;
     }
 
     // set queryOptions(options: QueryOptions) {this.queryOptions = options;}

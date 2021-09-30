@@ -1,7 +1,10 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import {Rent} from "./interfaces/rent";
+
+import {
+  Rent
+} from '../../../projects/Api/lib/models';
 import {ActivatedRoute} from "@angular/router";
-import {RentService} from '../core/services/rentService';
+import {RentService} from '../core/services/http/rent.service';
 import {User} from "../authentication/models/user.model";
 
 

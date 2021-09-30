@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {RentService} from '../../core/services/rentService';
-import {Rent} from '../interfaces/rent';
+import {RentService} from '../../core/services/http/rent.service';
+
 import {User} from '../../authentication/models/user.model';
 import {Location} from '@angular/common';
 
+import {
+  Service,
+  Rent
+} from '../../../../projects/Api/lib/models';
 
 @Component({
   selector: 'app-detail-rent',
@@ -31,7 +35,6 @@ export class DetailRentComponent implements OnInit {
     this.id =  +this.route.snapshot.paramMap.get('id');
     this.rent = this.rentService.getRent(this.id);
     console.log(this.id);
-    console.log(this.rent.ownerid);
 
 
   }

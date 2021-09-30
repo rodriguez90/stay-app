@@ -8,10 +8,11 @@ import {AddRentComponent} from './add-rent/add-rent.component';
 import {DetailRentComponent} from './detail-rent/detail-rent.component';
 import {ListRentComponent} from './list-rent/list-rent.component';
 import {AuthGuard} from '../core/guards/auth.guard';
+import {RentsComponent} from './rents/rents.component';
 
 const routes: Routes = [
-    { path: 'rents', component: ListRentComponent },
-    { path: 'rents/:ownerid', component: ListRentComponent, canActivate: [AuthGuard] },
+    { path: 'list', component: RentsComponent },
+    { path: 'list/:ownerid', component: RentsComponent, canActivate: [AuthGuard] },
     { path: 'addrent', component: AddRentComponent, canActivate: [AuthGuard] },
     { path: 'addrent/:id', component: AddRentComponent, canActivate: [AuthGuard] },
     { path: 'detailrent/:id', component: DetailRentComponent, canActivate: [AuthGuard] },

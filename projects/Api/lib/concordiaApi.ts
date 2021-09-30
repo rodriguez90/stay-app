@@ -19,11 +19,10 @@ class ConcordiaApi extends ConcordiaApiContext {
   authJwtRefresh: operations.AuthJwtRefresh;
   authJwtVerify: operations.AuthJwtVerify;
   authJwt: operations.AuthJwt;
-  departament: operations.DepartamentOperations;
-  documentType: operations.DocumentTypeOperations;
   person: operations.PersonOperations;
-  procedure: operations.ProcedureOperations;
   register: operations.Register;
+  rent: operations.RentOperations;
+  service: operations.ServiceOperations;
   user: operations.UserOperations;
 
   /**
@@ -40,11 +39,10 @@ class ConcordiaApi extends ConcordiaApiContext {
     this.authJwtRefresh = new operations.AuthJwtRefresh(this);
     this.authJwtVerify = new operations.AuthJwtVerify(this);
     this.authJwt = new operations.AuthJwt(this);
-    this.departament = new operations.DepartamentOperations(this);
-    this.documentType = new operations.DocumentTypeOperations(this);
     this.person = new operations.PersonOperations(this);
-    this.procedure = new operations.ProcedureOperations(this);
     this.register = new operations.Register(this);
+    this.rent = new operations.RentOperations(this);
+    this.service = new operations.ServiceOperations(this);
     this.user = new operations.UserOperations(this);
   }
 }

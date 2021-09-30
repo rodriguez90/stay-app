@@ -1,4 +1,5 @@
-import {Service} from './service';
+import {ServiceModel} from './service';
+import {FicheroModelo} from '../../../../projects/fbs-shared/src/lib/models';
 
 /**
  * Created by yander.pelfort on 19/08/2019.
@@ -15,5 +16,6 @@ export interface Rent {
     address: string;
     email: string;
     description: string;
-    services: Service[];
+    services: ServiceModel[];
+    images: FicheroModelo[];
 }

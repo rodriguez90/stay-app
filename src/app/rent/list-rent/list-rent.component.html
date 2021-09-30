@@ -4,57 +4,15 @@
     <mat-card-content>
       <!-- column -->
 
-
-
       <div fxLayout="row wrap" >
         <div fxFlex.gt-lg="80" fxFlex.gt-md="80" fxFlex.gt-sm="80" fxFlex.gt-xs="100" fxFlex="80">
           <h3 class="m-t-0" style="margin-left: 20px;margin-bottom: 0px">Available rents</h3>
         </div>
 
         <div *ngFor="let rent of rents" fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
-          <app-rent  [rent] ='rent'> </app-rent>
+          <app-rent *ngIf="rent!=null" [rent] ='rent'> </app-rent>
         </div>
-
-        <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
-
-    <mat-card class="oh" *ngIf="user!=null">
-      <a routerLink="/rent/addrent" style="color: black;" title="Add Rent">
-
-        <mat-card-header>
-          <mat-card-title >Add your rent business</mat-card-title>
-          <mat-card-subtitle style="color: white">subtitle</mat-card-subtitle>
-        </mat-card-header>
-
-
-          <mat-card-content style="margin-bottom: 0px;padding: 10px 0px 10px 0px;">
-
-
-            <div fxLayout="row wrap">
-
-              <div [ngStyle]="{'background': 'url(../../../assets/images/rent/+.png)', 'background-repeat': 'no-repeat'}"    style="height: 250px; background-size: cover; "  fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-
-
-
-
-              </div>
-
-              <div style="padding: 12px;"    fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                <mat-card-actions>
-                  <mat-icon   style="margin: 5px;color: white;" >local_hotel</mat-icon>
-                  <mat-icon    style="margin: 5px;color: white;" >restaurant</mat-icon>
-                  <mat-icon      style="margin: 5px;color: white;" >ac_unit</mat-icon>
-                </mat-card-actions>
-              </div>
-            </div>
-
-          </mat-card-content>
-
-      </a>
-    </mat-card>
-  </div>
-
       </div>
-
     </mat-card-content>
   </mat-card>
 </div>

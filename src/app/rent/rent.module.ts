@@ -15,17 +15,17 @@ import {RentComponent} from './rent.component';
 import {AddRentComponent} from './add-rent/add-rent.component';
 import {DetailRentComponent} from './detail-rent/detail-rent.component';
 import {ListRentComponent} from './list-rent/list-rent.component';
+import { RentsComponent } from './rents/rents.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
     imports: [
         OverlayModule,
         CommonModule,
-        RentRoutingModule,
-        MaterialModule,
         FlexLayoutModule,
-        FormsModule,
-        ReactiveFormsModule
+        SharedModule,
+        RentRoutingModule,
     ],
 
     declarations: [
@@ -33,6 +33,7 @@ import {ListRentComponent} from './list-rent/list-rent.component';
         AddRentComponent,
         DetailRentComponent,
         ListRentComponent,
+        RentsComponent,
     ],
     exports: [
         ListRentComponent
